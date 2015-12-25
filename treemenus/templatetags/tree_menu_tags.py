@@ -22,7 +22,7 @@ register = template.Library()
 def get_treemenus_static_prefix():
     if django.VERSION >= (1, 3):
         from django.templatetags.static import PrefixNode
-        return PrefixNode.handle_simple("STATIC_URL") + 'img/treemenus'
+        return PrefixNode.handle_simple("STATIC_URL") + 'treemenus/img'
     else:
         from django.contrib.admin.templatetags.adminmedia import admin_media_prefix
         return admin_media_prefix() + 'img/admin/'
