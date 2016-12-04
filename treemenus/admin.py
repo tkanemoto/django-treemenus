@@ -2,10 +2,10 @@ import re
 
 import django
 try:
-    from django.conf.urls import patterns, url
+    from django.conf.urls import url
     from django.views.generic import RedirectView
 except ImportError:  # Django < 1.4
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls.defaults import url
 from django.contrib import admin
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
