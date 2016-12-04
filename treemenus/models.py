@@ -33,7 +33,7 @@ class MenuItem(models.Model):
             new_parent = self.parent
             old_parent = MenuItem.objects.get(pk=self.pk).parent
             if old_parent != new_parent:
-                #If so, we need to recalculate the new ranks for the item and its siblings (both old and new ones).
+                # If so, we need to recalculate the new ranks for the item and its siblings (both old and new ones).
                 if new_parent:
                     clean_ranks(new_parent.children())  # Clean ranks for new siblings
                     self.rank = new_parent.children().count()
@@ -103,14 +103,14 @@ class MenuItem(models.Model):
 
 class MenuManager(models.Manager):
     pass
-    
+
 
 class Menu(models.Model):
     name = models.CharField(_('name'), max_length=50)
     root_item = models.ForeignKey(MenuItem, related_name='is_root_item_of', verbose_name=_('root item'), null=True, blank=True, editable=False)
 
     objects = MenuManager()
-    
+
     def save(self, force_insert=False, **kwargs):
         if not self.root_item:
             root_item = MenuItem()
@@ -137,3 +137,4 @@ class Menu(models.Model):
     class Meta:
         verbose_name = _('menu')
         verbose_name_plural = _('menus')
+        app_label = 'treemenus'
