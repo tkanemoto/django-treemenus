@@ -142,6 +142,8 @@ class MenuAdmin(admin.ModelAdmin):
                     self.menu_item_redirect,
                     {'action': 'delete'},
                     name='treemenus_menuitem_delete'),
+                url(r'^(.+)/item_change/$',
+                    self.menu_item_change_redirect, name='treemenus_menuitem_change'),
             ]
         return my_urls + urls
 
@@ -159,6 +161,11 @@ class MenuAdmin(admin.ModelAdmin):
         if obj is None:
             raise Http404('%s object with primary key %r does not exist.' % (model.__name__, escape(obj_pk)))
         return obj
+
+    def menu_item_change_redirect(self, request, pk):
+        menu_pk = MenuItem.objects.select_related('menu').get(id=pk).menu.id
+        print(menu_pk)
+        return HttpResponsePermanentRedirect(r'../../{}/change/'.format(menu_pk))
 
     def menu_item_redirect(self, request, pk, action):
         menu_pk = MenuItem.objects.select_related('menu').get(id=pk).menu.id
